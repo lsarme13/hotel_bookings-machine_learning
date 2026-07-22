@@ -73,7 +73,7 @@ Registros sem hóspedes: 180
 
 Observação: ADR significa *Average Daily Rate* (Tarifa Média Diária), um indicador de desempenho do setor hoteleiro que mede o rendimento médio diário por quarto ocupado em um determinado período de tempo. É um dado essencial na análise exploratória e no treinamento do modelo de IA no contexto deste projeto, já que as reservas com ADR mais alto podem influenciar a decisão dos hóspedes que optam pelo cancelamento.
 
-	Então são analisadas outras informações relevantes: os tipos de hotéis no dataset e a taxa geral de cancelamento:
+Então são analisadas outras informações relevantes: os tipos de hotéis no dataset e a taxa geral de cancelamento:
 
 Tipos de Hotéis: 'Resort Hotel' e 'City Hotel'
 
@@ -105,8 +105,7 @@ Por fim, são verificadas as alterações no tamanho do dataset após todo o pro
 **Geração de visualizações gráficas para interpretação dos dados**
 
 **Gráfico 1\) Tipos de Hotéis**
-
-     ![][image2]
+(./graficos/G1_barras-reservas_por_tipo_de_hotel.png)
 
 Este gráfico de barras compara a quantidade de reservas feitas por cada tipo de hotel.
 
@@ -114,21 +113,21 @@ O gráfico demonstra que City Hotels têm mais reservas do que Resort Hotels, se
 
 **Gráfico 2\) Porcentagem de Cancelamento por Tipo de Hotel**
 
-       ![][image3]
+(./graficos/G2_barras_cancelamento_por_tipo_de_hotel.png)
 
-		Este gráfico de barras demonstra a porcentagem de reservas que foram canceladas em cada tipo de hotel. City Hotels têm 30,1% de suas reservas canceladas, enquanto os Resort Hotels têm 23,45% de cancelamento. Essa informação implica que os City Hotels possuem uma chance maior de cancelamento de suas reservas do que os Resort Hotels, uma informação que pode ser útil para o modelo de IA que será treinado.
+Este gráfico de barras demonstra a porcentagem de reservas que foram canceladas em cada tipo de hotel. City Hotels têm 30,1% de suas reservas canceladas, enquanto os Resort Hotels têm 23,45% de cancelamento. Essa informação implica que os City Hotels possuem uma chance maior de cancelamento de suas reservas do que os Resort Hotels, uma informação que pode ser útil para o modelo de IA que será treinado.
 
-	**Gráfico 3\) Distribuição de ADR**
+**Gráfico 3\) Distribuição de ADR**
 
-	     ** ![][image4]**
+(./graficos/G3_histograma_distribuicao_adr.png)
 
-		O gráfico de histograma acima demonstra a distribuição de valores de ADR nos hotéis do dataset. Os dados da coluna ‘adr’ são filtrados para apresentar os valores entre 0 e 500 € na geração deste gráfico, já que a maioria dos registros se encontram nessa faixa e assim podemos nos concentrar onde há maior volume de dados. De acordo com o histograma criado, as médias de tarifas diárias se concentram, em sua maioria, entre 50 e 150 €, com a mediana sendo definida em 99 €.
+O gráfico de histograma acima demonstra a distribuição de valores de ADR nos hotéis do dataset. Os dados da coluna ‘adr’ são filtrados para apresentar os valores entre 0 e 500 € na geração deste gráfico, já que a maioria dos registros se encontram nessa faixa e assim podemos nos concentrar onde há maior volume de dados. De acordo com o histograma criado, as médias de tarifas diárias se concentram, em sua maioria, entre 50 e 150 €, com a mediana sendo definida em 99 €.
 
-	**Gráfico 4\) Lead time por cancelamento**
+**Gráfico 4\) Lead time por cancelamento**
 
-	**![][image5]**
+(./graficos/G4_boxplot_leadtime_por_cancelamento.png)
 
-		Este gráfico faz a comparação dos dados da coluna “**lead\_time**” (tempo de antecedência da reserva) com os dados da coluna “**is\_canceled**”. Ele demonstra que as reservas canceladas costumam ter um lead time maior. Reservas feitas com aproximadamente 120 dias de antecedência apresentam uma taxa de cancelamento mais alta, o que representa maior risco de perda financeira ao hotel. Isso mostra que os dados de “**lead\_time”** são de grande importância para este projeto, já que há um padrão forte de antecedência longa nas reservas que são canceladas.   
+Este gráfico faz a comparação dos dados da coluna “**lead\_time**” (tempo de antecedência da reserva) com os dados da coluna “**is\_canceled**”. Ele demonstra que as reservas canceladas costumam ter um lead time maior. Reservas feitas com aproximadamente 120 dias de antecedência apresentam uma taxa de cancelamento mais alta, o que representa maior risco de perda financeira ao hotel. Isso mostra que os dados de “**lead\_time”** são de grande importância para este projeto, já que há um padrão forte de antecedência longa nas reservas que são canceladas.   
 Em seguida, algumas colunas são criadas por combinações e derivações:
 
 - “**total\_noites**”: criada pela combinação de “**stays\_in\_weekend\_nights**” com “**stays\_in\_week\_nights**”, representando o total de noites que os hóspedes passaram em suas reservas;  
@@ -158,7 +157,7 @@ Após a criação das colunas descritas, o dataset contém 87.228 linhas com 46 
 Em seguida, são utilizadas algumas colunas na geração de um gráfico do tipo heatmap que demonstra a correlação entre informações importantes para a compreensão dos padrões de comportamentos dos hóspedes nos registros.   
 As colunas analisadas no gráfico de correlação são: “**adults**”, “**children**”, “**adr**”, “**is\_repeated\_guest**”, “**total\_of\_special\_requests**”, “**is\_canceled**”, "**total\_noites**", "**total\_hospedes**", "**alta\_temporada**", "**antecedencia\_longa**", "**tem\_criancas**", "**quarto\_diferente**", "**deposito\_nao\_reembolsavel**", "**sem\_deposito**", "**canal\_online\_ta**", "**canal\_groups**", "**cliente\_transient**", "**is\_city\_hotel**", "**taxa\_cancel\_anterior**", "**days\_in\_waiting\_list**" e '**lead\_time**'.
 
-	O gráfico gerado se encontra na pasta “graficos” dentro do diretório do projeto, com o nome “**Heatmap1\_correlacao\_entre\_variaveis.png**”. A partir dele se obtém alguns insights importantes:
+O gráfico gerado se encontra na pasta “graficos” dentro do diretório do projeto, com o nome “**Heatmap1\_correlacao\_entre\_variaveis.png**”. A partir dele se obtém alguns insights importantes:
 
 - “**lead\_time**” tem correlação positiva (0.18) com “**is\_canceled**”: quanto maior a antecedência da reserva, maior é a chance da reserva ser cancelada;  
 - “**total\_of\_special\_requests**” tem correlação negativa (-0.12) com “**is\_canceled**”: hóspedes que fazem pedidos especiais cancelam com menos frequência;  
@@ -175,7 +174,7 @@ As colunas analisadas no gráfico de correlação são: “**adults**”, “**c
 
 Agora são separadas 21 colunas *features* que serão utilizadas no treinamento do modelo de classificação deste projeto. As features selecionadas para isso são: “**lead\_time**”, “**total\_noites**”, “**total\_hospedes**”, “**adr**”, “**numero\_mes**”, “**alta\_temporada**”, “**antecedencia\_longa**”, “**is\_repeated\_guest**”, “**total\_of\_special\_requests**”, “**tem\_criancas**”, “**quarto\_diferente**”, “**deposito\_nao\_reembolsavel**”, “**sem\_deposito**”, “**canal\_online\_ta**”, “**canal\_groups**”, “**cliente\_transient**”, “**booking\_changes**”, “**days\_in\_waiting\_list**”, “**required\_car\_parking\_spaces**”, “**is\_city\_hotel**”, “**taxa\_cancel\_anterior**”, já que nos fornecem informações altamente relevantes quanto ao comportamento dos clientes no que diz respeito à frequência dos cancelamentos de suas reservas. A coluna “**is\_canceled**” é definida como a coluna alvo (target) do modelo.
 
-	Em seguida é feita a divisão dos dados de treino e dados de teste:
+Em seguida é feita a divisão dos dados de treino e dados de teste:
 
 Dados de treino: 69782 reservas (80.00%)
 
@@ -191,9 +190,7 @@ Baseline: 72.48%
 
 **4\. 2\) Treinamento do modelo de classificação**
 
-	Então é feito o treinamento do modelo de classificação **Random Forest**:
-
-![][image6]
+Então é feito o treinamento do modelo de classificação **Random Forest**:
 
 Parâmetros utilizados:
 
@@ -203,9 +200,9 @@ Parâmetros utilizados:
 - Quantidade de serviços paralelos: \-1 (todos os processadores);  
 - Nível de aleatorização da amostragem: 42\.
 
-Abaixo uma pequena amostra de predição com o modelo Random Forest:
+Na pasta "graficos" há uma pequena amostra de predição com o modelo Random Forest:
 
-                     ![][image7]
+(./graficos/Amostra_de_dados_1.png)
 
 **4\. 3\) Avaliação do modelo**
 
@@ -213,13 +210,13 @@ O desempenho do Random Forest é analisado com o relatório de classificação d
 
 Resultados da classificação:
 
-	Reservas mantidas: 
+Reservas mantidas: 
 
 - Precisão: 0.84  
 - Recall: 0.93  
 - F1-score: 0.88
 
-		Reservas canceladas:
+Reservas canceladas:
 
 - Precisão: 0.74  
 - Recall: 0.52  
@@ -230,17 +227,17 @@ Resultados da classificação:
 
 	É gerada uma matriz de confusão para medir o desempenho do Random Forest (o arquivo da imagem do gráfico encontra-se na pasta “**graficos**” no diretório do projeto, com o nome “**Matriz\_de\_confusao.png**”):
 
-           ![][image8]
+
 
 Conforme o gráfico anterior demonstra, o modelo previu corretamente 11.752 casos de reservas mantidas e 2.482 de reservas canceladas, enquanto apresentou 852 falsos positivos e 2.320 falsos negativos. O modelo possui uma boa precisão em identificar reservas que serão mantidas (93% de acerto), mas não pode prever boa parte dos cancelamentos reais (48% de erro). De modo geral, o classificador possui um bom desempenho, mas precisa de melhorias em sua capacidade de antecipar os casos de cancelamento.
 
-Em seguida é feita a análise da importância das features no classificador através do seguinte gráfico:  
-	![][image9]  
+Em seguida é feita a análise da importância das features no classificador através do gráfico localizado em "./graficos/Matriz_de_confusao.png"
+
 Os dados referentes à antecedência das reservas, às taxas médias diárias, pedidos especiais feitos pelos clientes e canal de marketing “**Online TA**” são os mais importantes no padrão de comportamento dos hóspedes. A coluna “**lead\_time**” domina com 20% de importância nas previsões, seguido pela coluna “**adr**” com 13% e “**total\_of\_special\_requests**” com 10%. Essas informações confirmam os insights obtidos durante a etapa de análise exploratória e pelos gráficos gerados nela. Por outro lado, colunas como “**days\_in\_waiting\_list**”, “**is\_repeated\_guest**” e “**canal\_groups**” tiveram muito menos importância no processo de classificação do modelo, indicando que esses fatores possivelmente não influenciam a decisão dos clientes de manter ou cancelar suas reservas.  
 
 **CONCLUSÃO**
 
-	Após a análise exploratória dos dados, a geração de visualizações gráficas e o emprego do modelo de classificação Random Forest, conclui-se que os fatores mais relevantes no padrão de comportamento dos hóspedes no dataset no que diz respeito ao cancelamento de suas reservas foram “**lead\_time**”, “**adr**” e “**total\_of\_special\_requests**”. O modelo atingiu 81,59% de acurácia, um desempenho superior ao baseline de 72,48%, o que demonstra a sua capacidade de identificar padrões determinantes no comportamento dos hóspedes que optam pelo cancelamento. 
+Após a análise exploratória dos dados, a geração de visualizações gráficas e o emprego do modelo de classificação Random Forest, conclui-se que os fatores mais relevantes no padrão de comportamento dos hóspedes no dataset no que diz respeito ao cancelamento de suas reservas foram “**lead\_time**”, “**adr**” e “**total\_of\_special\_requests**”. O modelo atingiu 81,59% de acurácia, um desempenho superior ao baseline de 72,48%, o que demonstra a sua capacidade de identificar padrões determinantes no comportamento dos hóspedes que optam pelo cancelamento. 
 
 [image1]: <data:image/png;base64,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>
 
